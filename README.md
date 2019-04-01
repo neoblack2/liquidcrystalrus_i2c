@@ -1,3 +1,3 @@
 # LiquidCrystal_I2C
 
-LiquidCrystal Arduino library for I2C LCD displays
+Russian text for I2C LCD displays with/without internal russian fonts

@@ -73,9 +73,10 @@ void print_rus(char *str) { // процедура вывода русских б
   int lcount = sizeof(rus_letters)/sizeof(char), i, j;
   for( i=0; i<strlen(str); i++ )
   { 
-        int found = 0;
-        for(j=0; j < 16; j++) if( addon_letters[j] != 0 and byte(str[i]) == byte(addon_letters[j]) ) { lcd.write(j); found = 1; break; }
-        if(!found) for(j=0; j < lcount; j++) if( byte(str[i]) == byte(rus_letters[j]) ) { lcd.write(trans_letters[j]); found = 1; break; }
+        if( (byte(str[i]) == 208 and byte(str[i+1]) != 208) and (byte(str[i]) == 209 and byte(str[i+1]) != 209)) continue; // 208 209 игнор, первый байт UTF8
+        bool found = false;
+        for(j=0; j < 16; j++) if( addon_letters[j] != 0 and byte(str[i]) == byte(addon_letters[j]) ) { lcd.write(j); found = true; break; }
+        if(!found) for(j=0; j < lcount; j++) if( byte(str[i]) == byte(rus_letters[j]) ) { lcd.write(trans_letters[j]); found = true; break; }
         if(!found) lcd.write(byte(str[i]));
   }  
 }

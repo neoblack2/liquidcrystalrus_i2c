@@ -39,7 +39,7 @@ void print_rus(char *str) { // процедура вывода русских б
   static char trans_letters[] = {'A','a','\xA0','\xB2','B','\xB3','\xA1','\xB4','\xE0','\xE3','E','e','\xA3','\xB6','\xA4','\xB7','\xA5','\xB8','\xA6','\xB9','K','\xBA','\xA7','\xBB','M','\xBC','H','\xBD','O','o','\xA8','\xBE','P','p','C','c','T','\xBF','\xA9','y','\xAA','\xE4','X','x','\xE1','\xE5','\xAB','\xC0','\xAC','\xC1','\xE2','\xE6','\xAD','\xC2','\xAE','\xC3','b','\xC4','\xAF','\xC5','\xB0','\xC6','\xB1','\xC7'};
   int lcount = sizeof(rus_letters)/sizeof(char), i, j;
   for( i=0; i<strlen(str); i++ ) { 
-    if( (byte(str[i]) == 208 and byte(str[i+1]) != 208) and (byte(str[i]) == 209 and byte(str[i+1]) != 209)) continue; // 208 209 игнор, первый байт UTF8
+    if( (byte(str[i]) == 208 and byte(str[i+1]) != 208) or (byte(str[i]) == 209 and byte(str[i+1]) != 209)) continue; // 208 209 игнор, первый байт UTF8
     bool found = false;
     for(j=0; j < lcount; j++) if( byte(str[i]) == byte(rus_letters[j]) ) {lcd.write(trans_letters[j]); found = true; break;} 
     if (!found) lcd.write(str[i]);
